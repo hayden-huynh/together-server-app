@@ -1,12 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Cat = require("./models/cat");
+const authRouter = require("./routes/authRoutes");
 
 const app = express();
 
-const dbURI = "mongodb://127.0.0.1:27017/cat";
+const dbURI = "mongodb://127.0.0.1:27017/dev";
 mongoose
-  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(dbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
   .then((_) => {
     console.log("Connected to database!");
     app.listen(3000);
@@ -19,19 +23,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.send("<h1>Hello Hayden!</h1>");
+app.get("/", (req, res, next) => {
+  res.send("Hello there!");
 });
 
-app.post("/new-cat", (req, res) => {
-  const cat = new Cat(req.body);
-
-  cat
-    .save()
-    .then((result) => {
-      res.send("<h1>Successfully Added New Catte!</h1>");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+app.use(authRouter);
