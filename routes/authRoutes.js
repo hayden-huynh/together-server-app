@@ -5,7 +5,7 @@ const User = require("../models/User");
 
 const router = express.Router();
 
-const normalDuration = 10; // seconds
+const normalDuration = 15 * 60; // seconds
 const longDuration = 365 * 24 * 60 * 60; // seconds
 let expiryTime;
 
@@ -35,7 +35,14 @@ const parseErrors = (err) => {
 router.post("/signup", async (req, res, next) => {
   const { email, password, rememberMe } = req.body;
   try {
-    const user = await User.create({ email, password });
+    const user = await User.create({
+      email,
+      password,
+      questionnaireResponses: [],
+      locations: [],
+    });
+    await user.hashPassword();
+    await user.save();
     const token = createToken(user._id, rememberMe);
     res.status(200).json({ userId: user._id, token, expiryTime });
   } catch (err) {
