@@ -2,8 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const authRouter = require("./routes/authRoutes");
+const timezoneRouter = require("./routes/timezoneRoutes");
 const User = require("./models/User");
-const verify_access = require("./authMiddleware");
+const verify_access = require("./utilities/authMiddleware");
+const { startupSchedule } = require("./utilities/scheduleCloudMessaging");
 
 const app = express();
 
@@ -15,8 +17,9 @@ mongoose
     useCreateIndex: true,
     autoIndex: true,
   })
-  .then((_) => {
+  .then(async (_) => {
     console.log("Connected to database!");
+    await startupSchedule();
     app.listen(3000);
   })
   .catch((err) => {
@@ -28,6 +31,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: true }));
 
 app.use(authRouter);
+
+app.use(timezoneRouter);
 
 // app.get("/", (req, res, next) => {
 //   res.send("Hello there!");
@@ -47,7 +52,7 @@ app.post("/save-response", verify_access, async (req, res, next) => {
   try {
     const user = await User.findById(userId);
     user.questionnaireResponses.push({ entries });
-    locations.forEach(loc => {
+    locations.forEach((loc) => {
       user.locations.push(loc);
     });
     await user.save();

@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const secret = require("./secret");
+const secret = require("../secret");
 
 const verify_access = (req, res, next) => {
   if (req.body.token) {
