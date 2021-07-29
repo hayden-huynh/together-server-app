@@ -9,6 +9,8 @@ const { startupSchedule } = require("./utilities/scheduleCloudMessaging");
 
 const app = express();
 
+app.set('trust proxy', 'loopback');
+
 const dbURI = "mongodb://127.0.0.1:27017/dev";
 mongoose
   .connect(dbURI, {
@@ -18,9 +20,9 @@ mongoose
     autoIndex: true,
   })
   .then(async (_) => {
-    console.log("Connected to database!");
+    // console.log("Connected to database!");
     await startupSchedule();
-    app.listen(3000);
+    app.listen(8081);
   })
   .catch((err) => {
     console.log(err);
