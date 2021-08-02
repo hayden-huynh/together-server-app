@@ -6,8 +6,8 @@ const startupSchedule = async () => {
   const timezones = await Timezone.find({}).exec();
   timezones.forEach((tz) => {
     const rule = new nodeSchedule.RecurrenceRule();
-    rule.hour = [9, 11, 13, 15, 17, 19, 21];
-    rule.minute = 0;
+    rule.hour = [8, 10, 12, 14, 16, 18, 20];
+    rule.minute = 30;
     rule.tz = tz.timezone;
 
     nodeSchedule.scheduleJob(rule, function () {

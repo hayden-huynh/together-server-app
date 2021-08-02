@@ -10,12 +10,6 @@ const locationSchema = mongoose.Schema({
   longitude: {
     type: Number,
   },
-  address: {
-    type: String,
-  },
-  placeName: {
-    type: String,
-  },
 });
 
 module.exports = locationSchema;

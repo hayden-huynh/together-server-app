@@ -15,7 +15,7 @@ const questionnaireSchema = mongoose.Schema(
       type: [questionnaireEntrySchema],
     },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 module.exports = questionnaireSchema;
