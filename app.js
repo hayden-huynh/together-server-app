@@ -36,9 +36,9 @@ app.use(authRouter);
 
 app.use(timezoneRouter);
 
-// app.get("/", (req, res, next) => {
-//   res.send("Hello there!");
-// });
+app.get("/", (req, res, next) => {
+  res.send("It works!");
+});
 
 // app.post("/", (req, res, next) => {
 //   console.log(req.body);
