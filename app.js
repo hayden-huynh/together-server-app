@@ -46,14 +46,19 @@ app.get("/", (req, res, next) => {
 // });
 
 app.post("/save-response", verify_access, async (req, res, next) => {
-  if (!req.body.userId || !req.body.entries || !req.body.locations) {
+  if (!req.body.userId || !req.body.responses || !req.body.locations) {
     res.status(400).json({ error: "Missing body attributes" });
   }
-  const { userId, entries, locations } = req.body;
+  const { userId, responses, locations } = req.body;
 
   try {
     const user = await User.findById(userId);
-    user.questionnaireResponses.push({ entries });
+    responses.forEach((res) => {
+      user.questionnaireResponses.push({
+        timestamp: res.timestamp,
+        entries: res.entries,
+      });
+    });
     locations.forEach((loc) => {
       user.locations.push(loc);
     });

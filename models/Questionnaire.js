@@ -9,13 +9,13 @@ const questionnaireEntrySchema = mongoose.Schema({
   },
 });
 
-const questionnaireSchema = mongoose.Schema(
-  {
-    entries: {
-      type: [questionnaireEntrySchema],
-    },
+const questionnaireSchema = mongoose.Schema({
+  timestamp: {
+    type: String,
   },
-  { timestamps: true }
-);
+  entries: {
+    type: [questionnaireEntrySchema],
+  },
+});
 
 module.exports = questionnaireSchema;
