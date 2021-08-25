@@ -52,7 +52,10 @@ app.post("/save-response", verify_access, async (req, res, next) => {
   try {
     const user = await User.findById(userId);
     responses.forEach((res) => {
-      user.questionnaireResponses.push({ entries: res });
+      user.questionnaireResponses.push({
+        timestamp: res.timestamp,
+        entries: res.entries,
+      });
     });
     locations.forEach((loc) => {
       user.locations.push(loc);
