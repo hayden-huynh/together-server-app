@@ -5,7 +5,10 @@ const locationSchema = require("./Location");
 
 const userSchema = new mongoose.Schema({
   authenticationCode: {
-    type: String
+    type: String,
+  },
+  timezone: {
+    type: String,
   },
   questionnaireResponses: {
     type: [questionnaireSchema],

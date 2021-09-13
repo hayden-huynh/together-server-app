@@ -15,14 +15,14 @@ const createToken = (userId) => {
 };
 
 router.post("/login", async (req, res, next) => {
-  const { code } = req.body;
+  const { code, timezone } = req.body;
   try {
     const validCode = await AuthenticationCode.findOne({ code });
     if (validCode) {
       let user;
       if (validCode.inUsage) {
         // Find existing user
-        user = await User.findOne({authenticationCode: code});
+        user = await User.findOne({ authenticationCode: code });
       } else {
         // Set inUsage of the code to true
         validCode.inUsage = true;
@@ -30,6 +30,7 @@ router.post("/login", async (req, res, next) => {
         // Create a new User document
         user = await User.create({
           authenticationCode: code,
+          timezone: timezone,
           questionnaireResponses: [],
           locations: [],
         });

@@ -9,7 +9,7 @@ const { startupSchedule } = require("./utilities/scheduleCloudMessaging");
 
 const app = express();
 
-app.set('trust proxy', 'loopback');
+app.set("trust proxy", "loopback");
 
 const dbURI = "mongodb://127.0.0.1:27017/dev";
 mongoose
