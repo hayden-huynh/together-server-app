@@ -34,7 +34,7 @@ app.use(authRouter);
 
 app.use(timezoneRouter);
 
-// app.get("/", (req, res, next) => {
+// app.get("/", verify_access, (req, res, next) => {
 //   res.send("Hello there!");
 // });
 
