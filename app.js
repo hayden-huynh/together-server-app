@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json({ extended: true }));
 
-const dbURI = "mongodb://127.0.0.1:27017/dev";
+const dbURI = "mongodb://127.0.0.1:27017/check-in-data";
 mongoose
   .connect(dbURI, {
     useNewUrlParser: true,
