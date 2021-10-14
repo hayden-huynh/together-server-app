@@ -1,3 +1,4 @@
-const secret = "Huynh Nguyen Thanh Hai 28/04/99 & Phan Ho Le Khanh 15/11/02";
+const secret =
+  "UQ - Psychology & EAIT - Localisation of mobile lifelogging data for the detection of loneliness - year-long ENGG4811 2021";
 
 module.exports = secret;
