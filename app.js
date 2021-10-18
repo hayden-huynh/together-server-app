@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 
 const authRouter = require("./routes/authRoutes");
 const timezoneRouter = require("./routes/timezoneRoutes");
@@ -16,6 +17,8 @@ app.use(express.json({ extended: true }));
 app.set("view engine", "ejs");
 
 app.use(express.static("public"));
+
+app.use(cookieParser());
 
 const dbURI = "mongodb://127.0.0.1:27017/dev";
 mongoose

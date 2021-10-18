@@ -8,7 +8,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  /* background-color: lightblue; */
+  background-color: floralwhite;
   font-family: "Noto Sans", sans-serif;
   width: 100%;
   height: 100%;
@@ -20,6 +20,8 @@ nav {
   display: flex;
   background-color: #79d9f4;
   flex: 0 1 auto;
+  position: sticky;
+  top: 0;
 }
 nav h1 {
   color: #1f9a23;

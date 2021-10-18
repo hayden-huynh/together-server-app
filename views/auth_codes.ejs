@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/styles/auth_codes.css" />
-    <title>Authentication Codes</title>
+    <title>Check-In Admin | Authentication Codes</title>
   </head>
   <body>
     <%- include("components/navbar") %>
@@ -26,7 +26,6 @@
       </div>
       <% }); %>
     </div>
-    <hr />
     <div id="code-update">
       <textarea id="new-batch" rows="10"></textarea>
       <button id="submit-codes">Update Codes</button>
@@ -37,6 +36,10 @@
         .querySelector("#submit-codes")
         .addEventListener("click", async (e) => {
           const newCodes = document.querySelector("#new-batch").value;
+          if (newCodes == null || newCodes == "") {
+            alert("Please provide a new batch of codes");
+            return;
+          }
           try {
             const response = await fetch("/auth-codes", {
               method: "POST",
@@ -48,13 +51,16 @@
             const result = await response.json();
             if (result.error) {
               console.log(result.error);
-            }
-            if (result.success) {
+              location.assign("/admin");
+            } else if (result.success) {
               console.log(result.success);
+              location.assign("/auth-codes");
+            } else {
+              location.assign("/admin");
             }
-            location.assign("/auth-codes");
           } catch (err) {
             console.log(err);
+            location.assign("/admin");
           }
         });
     </script>

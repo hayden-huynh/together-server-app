@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/stats_overview.css" />
+    <title>Check-In Admin | Overview Statistics</title>
+  </head>
+  <body>
+    <%- include("components/navbar") %>
+    <div id="stats-overview">
+      <div id="stats-card">
+        <div class="card-entry">
+          <h2 class="label">Total Participants</h2>
+          <h2><%= participantCount %></h2>
+          <hr />
+        </div>
+        <div class="card-entry">
+          <h2 class="label">Total Submissions</h2>
+          <h2><%= submissionCount %></h2>
+          <hr />
+        </div>
+        <div class="card-entry">
+          <h2 class="label">Answer Count & Distribution</h2>
+          <% stats.forEach(item => { %>
+          <div class="question-answers">
+            <h3><%= item.question %></h3>
+            <div class="answer-dist">
+              <p>
+                Terrible: <%= item.counts[0] %> (<%= Math.round(item.counts[0] /
+                submissionCount * 100) %>%)
+              </p>
+              <p>
+                Not Good: <%= item.counts[1] %> (<%= Math.round(item.counts[1] /
+                submissionCount * 100) %>%)
+              </p>
+              <p>
+                Average: <%= item.counts[2] %> (<%= Math.round(item.counts[2] /
+                submissionCount * 100) %>%)
+              </p>
+              <p>
+                Good: <%= item.counts[3] %> (<%= Math.round(item.counts[3] /
+                submissionCount * 100) %>%)
+              </p>
+              <p>
+                Amazing: <%= item.counts[4] %> (<%= Math.round(item.counts[4] /
+                submissionCount * 100) %>%)
+              </p>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+    <div id="participant-list">
+      <h2>Participant List</h2>
+      <div id="scroll-list">
+        <% allUsers.forEach(user => { %>
+        <a class="user-link" href="/statistics-participant/<%= user._id %>">
+          Participant <%= user.authenticationCode %>
+        </a>
+        <% }); %>
+      </div>
+    </div>
+  </body>
+</html>

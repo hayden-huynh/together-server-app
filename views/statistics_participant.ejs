@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/stats_participant.css" />
+    <title>Check-In Admin | Participant Statistics</title>
+  </head>
+  <body>
+    <%- include("components/navbar") %>
+    <div id="stats-overview">
+      <div id="stats-card">
+        <div class="card-entry">
+          <h2 class="label">Participant's Code</h2>
+          <h2><%= usersCode %></h2>
+          <hr />
+        </div>
+        <div class="card-entry">
+          <h2 class="label">Participant's Timezone</h2>
+          <h2><%= timezone %></h2>
+          <hr />
+        </div>
+        <div class="card-entry">
+          <h2 class="label">Total Submissions Made</h2>
+          <h2><%= submissionCount %></h2>
+          <hr />
+        </div>
+        <div class="card-entry">
+          <h2 class="label">Answer Count & Distribution</h2>
+          <% stats.forEach(item => { %>
+          <div class="question-answers">
+            <h3><%= item.question %></h3>
+            <div class="answer-dist">
+              <p>
+                Terrible: <%= item.counts[0] %> (<%= Math.round(item.counts[0] /
+                submissionCount * 100) %>%)
+              </p>
+              <p>
+                Not Good: <%= item.counts[1] %> (<%= Math.round(item.counts[1] /
+                submissionCount * 100) %>%)
+              </p>
+              <p>
+                Average: <%= item.counts[2] %> (<%= Math.round(item.counts[2] /
+                submissionCount * 100) %>%)
+              </p>
+              <p>
+                Good: <%= item.counts[3] %> (<%= Math.round(item.counts[3] /
+                submissionCount * 100) %>%)
+              </p>
+              <p>
+                Amazing: <%= item.counts[4] %> (<%= Math.round(item.counts[4] /
+                submissionCount * 100) %>%)
+              </p>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+    <div id="response-list">
+      <h2>Questionnaire Response List</h2>
+      <div id="scroll-list">
+        <% responses.forEach(response => { %>
+        <div class="response-card">
+          <div class="timestamp-cont">
+            <p><%= response.timestamp %></p>
+          </div>
+          <div class="entry-cont">
+            <% response.entries.forEach(entry => { %>
+            <p><%= entry.question %> <%= entry.answer %></p>
+            <% }); %>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+  </body>
+</html>
