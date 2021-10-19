@@ -8,8 +8,8 @@ const router = express.Router();
 
 let expiryTime = 365 * 24 * 60 * 60; // a year in seconds
 
-const createToken = (userId) => {
-  return jwt.sign({ userId }, secret, {
+const createToken = (authCode) => {
+  return jwt.sign({ authCode }, secret, {
     expiresIn: expiryTime,
   });
 };
@@ -36,7 +36,7 @@ router.post("/login", async (req, res, next) => {
         });
       }
       // Create token and respond with {user._id, token, expiryTime}
-      const token = createToken(user._id);
+      const token = createToken(user.authenticationCode);
       res.status(200).json({ userId: user._id, token, expiryTime });
     } else {
       throw Error("Invalid Authentication Code");

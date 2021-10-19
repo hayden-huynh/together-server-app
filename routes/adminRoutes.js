@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const User = require("../models/User");
+const Timezone = require("../models/Timezone");
 const AuthenticationCode = require("../models/AuthenticationCode");
 const Admin = require("../models/Admin");
 const secret = require("../secret");
@@ -219,6 +220,8 @@ router.post("/auth-codes", verifyAdmin, async (req, res) => {
     const codeArr = newCodes.split("\n");
 
     await AuthenticationCode.deleteMany({}).exec();
+    await User.deleteMany({}).exec();
+    await Timezone.deleteMany({}).exec();
 
     let createNewCodes = [];
     codeArr.forEach((code) => {

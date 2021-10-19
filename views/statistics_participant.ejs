@@ -34,24 +34,24 @@
             <h3><%= item.question %></h3>
             <div class="answer-dist">
               <p>
-                Terrible: <%= item.counts[0] %> (<%= Math.round(item.counts[0] /
-                submissionCount * 100) %>%)
+                Terrible: <%= item.counts[0] %> (<%= submissionCount != 0 ?
+                Math.round(item.counts[0] / submissionCount * 100) : " __ " %>%)
               </p>
               <p>
-                Not Good: <%= item.counts[1] %> (<%= Math.round(item.counts[1] /
-                submissionCount * 100) %>%)
+                Not Good: <%= item.counts[1] %> (<%= submissionCount != 0 ?
+                Math.round(item.counts[1] / submissionCount * 100) : " __ " %>%)
               </p>
               <p>
-                Average: <%= item.counts[2] %> (<%= Math.round(item.counts[2] /
-                submissionCount * 100) %>%)
+                Average: <%= item.counts[2] %> (<%= submissionCount != 0 ?
+                Math.round(item.counts[2] / submissionCount * 100) : " __ " %>%)
               </p>
               <p>
-                Good: <%= item.counts[3] %> (<%= Math.round(item.counts[3] /
-                submissionCount * 100) %>%)
+                Good: <%= item.counts[3] %> (<%= submissionCount != 0 ?
+                Math.round(item.counts[3] / submissionCount * 100) : " __ " %>%)
               </p>
               <p>
-                Amazing: <%= item.counts[4] %> (<%= Math.round(item.counts[4] /
-                submissionCount * 100) %>%)
+                Amazing: <%= item.counts[4] %> (<%= submissionCount != 0 ?
+                Math.round(item.counts[4] / submissionCount * 100) : " __ " %>%)
               </p>
             </div>
           </div>
@@ -62,7 +62,9 @@
     <div id="response-list">
       <h2>Questionnaire Response List</h2>
       <div id="scroll-list">
-        <% responses.forEach(response => { %>
+        <% if (responses.length == 0) { %>
+        <h3>There are no questionnaire responses from this participant yet</h3>
+        <% } else { %> <% responses.forEach(response => { %>
         <div class="response-card">
           <div class="timestamp-cont">
             <p><%= response.timestamp %></p>
@@ -73,7 +75,7 @@
             <% }); %>
           </div>
         </div>
-        <% }); %>
+        <% }); %> <% } %>
       </div>
     </div>
   </body>
