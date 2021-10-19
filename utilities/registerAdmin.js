@@ -10,7 +10,7 @@ const hashPassword = async (password) => {
 };
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/dev", {
+  .connect("mongodb://127.0.0.1:27017/check-in-data", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
