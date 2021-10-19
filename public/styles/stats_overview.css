@@ -1,0 +1,66 @@
+#stats-overview {
+  width: 100%;
+  border-bottom: 1px solid grey;
+}
+#stats-card {
+  width: 80%;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid grey;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: blanchedalmond;
+}
+#stats-card .card-entry {
+  width: 100%;
+}
+#stats-card h2,
+h3,
+p {
+  margin: 0;
+  text-align: center;
+}
+#stats-card .label {
+  color: #1f9a23;
+}
+#stats-card .question-answers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+#stats-card .answer-dist {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+#participant-list {
+  width: 100%;
+  min-height: 50%;
+  text-align: center;
+}
+#participant-list #scroll-list {
+  height: 100%;
+  width: 50%;
+  margin: auto;
+  overflow-y: auto;
+}
+#participant-list .user-link {
+  text-decoration: none;
+  display: block;
+  width: 90%;
+  text-align: center;
+  border: 1px solid grey;
+  padding: 10px 0;
+  margin: 10px auto;
+  border-radius: 20px;
+  background-color: lightblue;
+}

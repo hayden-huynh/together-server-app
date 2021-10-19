@@ -1,0 +1,82 @@
+#stats-overview {
+  width: 100%;
+  border-bottom: 1px solid grey;
+}
+#stats-card {
+  width: 80%;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid grey;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: blanchedalmond;
+}
+#stats-card .card-entry {
+  width: 100%;
+}
+#stats-card h2,
+h3,
+p {
+  margin: 0;
+  text-align: center;
+}
+#stats-card .label {
+  color: #1f9a23;
+}
+#stats-card .question-answers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+#stats-card .answer-dist {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+#response-list {
+  width: 100%;
+  min-height: 90%;
+}
+#response-list h2 {
+  text-align: center;
+}
+#response-list #scroll-list {
+  height: 100%;
+  width: 70%;
+  margin: auto;
+  overflow-y: auto;
+}
+#response-list .response-card {
+  border: 1px solid grey;
+  border-radius: 20px;
+  margin: 10px 0;
+  background-color: lightblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#response-list .response-card .timestamp-cont {
+  width: 100%;
+  border-bottom: 1px solid grey;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: lightgreen;
+  padding: 10px 0;
+  font-weight: bold;
+}
+#response-list .response-card .entry-cont {
+  padding: 10px;
+}
+#response-list .response-card .entry-cont p {
+  text-align: left;
+}
