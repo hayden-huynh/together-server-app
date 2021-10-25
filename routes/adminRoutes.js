@@ -2,10 +2,11 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-const User = require("../models/User");
+const { User } = require("../models/User");
 const Timezone = require("../models/Timezone");
 const AuthenticationCode = require("../models/AuthenticationCode");
 const Admin = require("../models/Admin");
+const Archive = require("../models/Archive");
 const secret = require("../secret");
 
 const router = express.Router();
@@ -146,9 +147,22 @@ router.get("/statistics-overview", verifyAdmin, async (req, res) => {
   });
 });
 
+router.get("/download-all", verifyAdmin, async (req, res) => {
+  const allData = await User.find().select("-__v").exec();
+  const allDataJson = JSON.stringify(allData);
+  res.setHeader(
+    "Content-Disposition",
+    "attachment; filename=CheckIn-All-Data.json"
+  );
+  res.setHeader("Content-Type", "application/json");
+  res.write(allDataJson, (err) => {
+    res.end();
+  });
+});
+
 router.get("/statistics-participant/:id", verifyAdmin, async (req, res) => {
   const id = req.params.id;
-  const user = await User.findById(id).select("-locations");
+  const user = await User.findById(id).select("-locations").exec();
 
   const usersCode = user.authenticationCode;
   const timezone = user.timezone;
@@ -201,11 +215,26 @@ router.get("/statistics-participant/:id", verifyAdmin, async (req, res) => {
   });
 
   res.render("statistics_participant", {
+    userId: id,
     usersCode,
     timezone,
     submissionCount,
     stats: Object.values(stats),
     responses: user.questionnaireResponses,
+  });
+});
+
+router.get("/download-participant/:id", async (req, res) => {
+  const id = req.params.id;
+  const participantData = await User.findById(id).select("-__v").exec();
+  const participantDataJson = JSON.stringify(participantData);
+  res.setHeader(
+    "Content-Disposition",
+    `attachment; filename=CheckIn-Participant-${participantData.authenticationCode}.json`
+  );
+  res.setHeader("Content-Type", "application/json");
+  res.write(participantDataJson, (err) => {
+    res.end();
   });
 });
 
@@ -219,9 +248,16 @@ router.post("/auth-codes", verifyAdmin, async (req, res) => {
   try {
     const codeArr = newCodes.split("\n");
 
+    const allData = await User.find().select("-_id -__v").exec();
+    if (allData.length != 0) {
+      await Archive.create({
+        timestamp: new Date().toLocaleString(),
+        data: allData,
+      });
+      await User.deleteMany({}).exec();
+      await Timezone.deleteMany({}).exec();
+    }
     await AuthenticationCode.deleteMany({}).exec();
-    await User.deleteMany({}).exec();
-    await Timezone.deleteMany({}).exec();
 
     let createNewCodes = [];
     codeArr.forEach((code) => {
@@ -239,6 +275,28 @@ router.post("/auth-codes", verifyAdmin, async (req, res) => {
     console.log(err);
     res.json({ error: err });
   }
+});
+
+router.get("/archives", async (req, res) => {
+  const archives = await Archive.find().select("-__v").exec();
+  res.render("archive", { archives });
+});
+
+router.get("/download-archive/:id", verifyAdmin, async (req, res) => {
+  const id = req.params.id;
+  const archive = await Archive.findById(id).select("-__v").exec();
+  const date = archive.timestamp.split(", ")[0];
+  const hyphenDate = date.replaceAll("/", "-");
+  const archiveData = archive.data;
+  const archiveDataJson = JSON.stringify(archiveData);
+  res.setHeader(
+    "Content-Disposition",
+    `attachment; filename=CheckIn_Archive_${hyphenDate}.json`
+  );
+  res.setHeader("Content-Type", "application/json");
+  res.write(archiveDataJson, (err) => {
+    res.end();
+  });
 });
 
 module.exports = router;
