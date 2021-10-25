@@ -17,6 +17,21 @@
 #stats-card .card-entry {
   width: 100%;
 }
+#stats-card .card-download-entry {
+  width: 100%;
+}
+#stats-card .card-entry a {
+  margin: 10px auto;
+  width: 150px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  display: block;
+  border: 1px solid grey;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: lightblue;
+}
 #stats-card h2,
 h3,
 p {
