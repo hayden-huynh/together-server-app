@@ -224,7 +224,7 @@ router.get("/statistics-participant/:id", verifyAdmin, async (req, res) => {
   });
 });
 
-router.get("/download-participant/:id", async (req, res) => {
+router.get("/download-participant/:id", verifyAdmin, async (req, res) => {
   const id = req.params.id;
   const participantData = await User.findById(id).select("-__v").exec();
   const participantDataJson = JSON.stringify(participantData);
@@ -277,7 +277,7 @@ router.post("/auth-codes", verifyAdmin, async (req, res) => {
   }
 });
 
-router.get("/archives", async (req, res) => {
+router.get("/archives", verifyAdmin, async (req, res) => {
   const archives = await Archive.find().select("-__v").exec();
   res.render("archive", { archives });
 });
