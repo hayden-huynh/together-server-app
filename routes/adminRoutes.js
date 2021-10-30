@@ -251,7 +251,9 @@ router.post("/auth-codes", verifyAdmin, async (req, res) => {
     const allData = await User.find().select("-_id -__v").exec();
     if (allData.length != 0) {
       await Archive.create({
-        timestamp: new Date().toLocaleString(),
+        timestamp: new Date().toLocaleString("en-AU", {
+          timeZone: "Australia/Brisbane",
+        }),
         data: allData,
       });
       await User.deleteMany({}).exec();
